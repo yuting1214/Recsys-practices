@@ -118,3 +118,7 @@ Modular Structure: The modular design allows for easy integration of new recomme
 Experiments & Hyperparameters: Storing experiment configurations separately makes it easier to reproduce experiments, tweak hyperparameters, and run batch experiments.
 Testing: Include unit and integration tests to ensure your code remains functional and scalable as the project grows.
 This structure ensures that your project remains well-organized, easy to scale, and maintains reproducibility across different experiments.
+
+## Repo Reference:
+
+* https://github.com/nntrongnghia/learn-recsys/tree/main

@@ -12,7 +12,7 @@ class BaseDataset(Dataset):
         raise NotImplementedError
 
 class ML100K(BaseDataset):
-    def __init__(self, data_dir="./data/movielens/ml-100k", normalize_rating=False):
+    def __init__(self, data_dir="./data/movielens", normalize_rating=False):
         self.normalize_rating = normalize_rating
         self.data_dir = data_dir
         self.df = self.read_data_ml100k(data_dir)
@@ -27,8 +27,8 @@ class ML100K(BaseDataset):
         self.rating = self.df.rating.values.astype(np.float32)
         self.timestamp = self.df.timestamp
 
-    def read_data_ml100k(self, data_dir="./data/movielens/ml-100k") -> pd.DataFrame:
-        data_file = os.path.join(data_dir, 'u.data')
+    def read_data_ml100k(self, data_dir="./data/movielens") -> pd.DataFrame:
+        data_file = os.path.join(data_dir, './ml-100k/u.data')
         if not os.path.exists(data_file):
             self.download_and_extract(data_dir)
         names = ['user_id', 'item_id', 'rating', 'timestamp']
@@ -36,7 +36,8 @@ class ML100K(BaseDataset):
 
     def download_and_extract(self, data_dir):
         url = "https://files.grouplens.org/datasets/movielens/ml-100k.zip"
-        if not os.path.exists(os.path.join(data_dir, 'ml-100k.zip')):
+        file_path = os.path.join(data_dir, 'ml-100k')
+        if not os.path.exists(file_path):
             print(f"Downloading {url}...")
             response = requests.get(url)
             with zipfile.ZipFile(io.BytesIO(response.content)) as z:

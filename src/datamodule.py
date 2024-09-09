@@ -1,15 +1,14 @@
 import lightning as L
 from torch.utils.data import DataLoader
-from src.dataset import ML100K
+from src.dataset import BaseDataset
 
-class ML100KDataModule(L.LightningDataModule):
-    def __init__(self, data_dir: str = "./data/movielens/ml-100k", train_ratio: float = 0.8, batch_size: int = 32, num_workers: int = 2):
+class LitDataModule(L.LightningDataModule):
+    def __init__(self, dataset: BaseDataset, train_ratio: float = 0.8, batch_size: int = 32, num_workers: int = 2):
         super().__init__()
-        self.data_dir = data_dir
         self.train_ratio = train_ratio
         self.batch_size = batch_size
         self.num_workers = num_workers
-        self.dataset = ML100K(data_dir=data_dir)
+        self.dataset = dataset
 
     def setup(self, stage: str):
         if stage == "fit":

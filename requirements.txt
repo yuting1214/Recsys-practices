@@ -1,5 +1,6 @@
+requests
 numpy
 pandas
-pytorch_lightning==2.4.0
+lightning==2.4.0
 torch
 torchmetrics
