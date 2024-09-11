@@ -18,11 +18,12 @@ recsys-project/
 │
 ├── src/                              # Source code for models, data processing, and utilities
 │   ├── __init__.py                   # Makes src a package
-│   ├── dataset.py                    # Contains ML100K and BaseDataset classes
-│   └── datamodule.py                 # Contains ML100KDataModule class
-│   ├── data_loader.py                # Functions to load and preprocess datasets
 │   ├── metrics.py                    # Evaluation metrics for recommendations (e.g., RMSE, Precision@K)
+│   ├── data_loader/                     # Training scripts and pipeline
+│   │   ├── DataModule.py
+│   │   └── data_loader.py
 │   ├── models/                       # Directory for model classes and algorithms
+│   │   ├── ModelModule.py 
 │   │   ├── baseline.py               # Simple models (e.g., User-Mean, Item-Mean)
 │   │   ├── matrix_factorization.py   # Matrix Factorization models (e.g., ALS, SVD)
 │   │   ├── neural_collaborative.py   # Neural Collaborative Filtering models
@@ -31,9 +32,6 @@ recsys-project/
 │   │   └── ...                       # Other SOTA algorithms like LightFM, BERT4Rec, etc.
 │   ├── training/                     # Training scripts and pipeline
 │   │   ├── train_baseline.py         # Training script for baseline models
-│   │   ├── train_matrix_factorization.py
-│   │   ├── train_neural_collaborative.py
-│   │   ├── train_transformers.py
 │   │   └── ...
 │   └── utils/                        # General utilities (e.g., logging, saving models)
 │       ├── logger.py

@@ -1,6 +1,6 @@
 import lightning as L
 from torch.utils.data import DataLoader
-from src.dataset import BaseDataset
+from src.data_loader.dataset import BaseDataset
 
 class LitDataModule(L.LightningDataModule):
     def __init__(self, dataset: BaseDataset, train_ratio: float = 0.8, batch_size: int = 32, num_workers: int = 2):
