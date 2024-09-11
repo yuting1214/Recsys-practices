@@ -12,6 +12,9 @@ class LitModel(L.LightningModule):
         self.lr = lr
         self.sparse = getattr(self.model, "sparse", False)
         self.rmse = MeanSquaredError()
+        self.training_step_outputs = []
+        self.validation_step_outputs = []
+
 
     def configure_optimizers(self):
         if self.sparse:
@@ -39,12 +42,12 @@ class LitModel(L.LightningModule):
         self.update_metric(m_outputs, batch)
         return loss
 
-    def training_epoch_end(self, outputs):
+    def on_train_epoch_end(self, outputs):
         avg_loss = torch.stack([x["loss"] for x in outputs]).mean()
         self.logger.experiment.add_scalar(
             "train/loss", avg_loss, self.current_epoch)
 
-    def validation_epoch_end(self, outputs):
+    def on_validation_epoch_end(self, outputs):
         avg_loss = torch.stack(outputs).mean()
         self.logger.experiment.add_scalar(
             "val/loss", avg_loss, self.current_epoch)

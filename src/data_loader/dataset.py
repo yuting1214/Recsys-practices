@@ -2,6 +2,7 @@ import os
 import io
 import zipfile
 import requests
+import torch
 import numpy as np
 import pandas as pd
 from torch.utils.data import Dataset, random_split
@@ -55,4 +56,9 @@ class ML100K(BaseDataset):
         return len(self.df)
 
     def __getitem__(self, idx):
-        return self.user_id[idx], self.item_id[idx], self.rating[idx]
+        # Convert user_id, item_id, and rating to PyTorch tensors
+        user_id = torch.tensor(self.user_id[idx], dtype=torch.long)
+        item_id = torch.tensor(self.item_id[idx], dtype=torch.long)
+        rating = torch.tensor(self.rating[idx], dtype=torch.float32)
+        
+        return user_id, item_id, rating
