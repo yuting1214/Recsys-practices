@@ -30,22 +30,10 @@ class LitModel(L.LightningModule):
         # Extract the features and labels from the batch
         y = self.get_label(batch)
         preds = self(batch)
-        
-        # Print debug info for preds and y
-        print(f"Batch Index: {batch_idx}")
-        print(f"Predictions (preds): {preds}")
-        print(f"Ground Truth (y): {y}")
-        
-        # Add a debug print to check the types and shapes
-        print(f"Preds type: {type(preds)}, shape: {preds.shape}")
-        print(f"Labels type: {type(y)}, shape: {y.shape}")
 
         # Compute the loss using the train_metric function (likely a loss function)
         batch_loss = self.train_metric(preds, y)
         
-        # Print the calculated loss
-        print(f"Batch Loss: {batch_loss}")
-
         # Log the loss for this step
         self.log("train_loss_step", batch_loss, on_step=True, on_epoch=True, prog_bar=True, logger=True)
 
@@ -77,7 +65,7 @@ class LitMF(LitModel):
 
     def get_label(self, batch):
         """Extract ground truth labels from the batch."""
-        return batch[-1]  # Assuming ratings are the last element of the batch
+        return batch[-1].unsqueeze(0)
 
     def forward(self, batch):
         """Forward pass through the MF model."""
