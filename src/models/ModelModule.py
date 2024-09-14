@@ -35,13 +35,11 @@ class LitModel(L.LightningModule):
         batch_loss = self.train_metric(preds, y)
         
         # Log the loss for this step
-        self.log("train_loss_step", batch_loss, on_step=True, on_epoch=True, prog_bar=True, logger=True)
+        self.log("train_loss", batch_loss, on_step=True, on_epoch=True, prog_bar=True, logger=True)
 
         return batch_loss
 
-
     def on_train_epoch_end(self):
-        self.log("train_loss_epoch", self.train_metric.compute())
         self.train_metric.reset()
 
     def validation_step(self, batch, batch_idx):
